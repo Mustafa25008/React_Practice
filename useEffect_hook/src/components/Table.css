@@ -1,0 +1,41 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+.heading-1 {
+    font-size: 3.2em;
+    line-height: 1.1;
+    color: blue;
+}
+table, th, td {
+    border: 1px solid black;
+}
+table {
+    border-collapse: collapse;
+    padding: "5px";
+    margin: "5px";
+    width: 100%;
+    
+}
+
+th {
+    color: rgb(255, 255, 255);
+    background: rgb(255, 30, 0);
+}
+tr {
+    text-align: left;
+}
+button {
+    margin: 2px;
+    color: #176b0c;
+    background: #cef3ef;
+    width: auto;
+    height: auto;
+}
+.no-border {
+  border: 1 solid black;
+  margin: 5px;
+  border-radius: 5px;
+}
