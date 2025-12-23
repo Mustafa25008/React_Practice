@@ -1,17 +1,13 @@
-import ApiExam from "./components/apiexample";
 import React from "react";
-import Table from "./components/tableform";
+import Test from "./components/test";
+import "./App.css";
 
 
 function App() {
   return (
     <div>
-      {/* <UseEffect /> */}
-      {/* <AddProduct />
-      {<ApiExam /> */}
-      
-      {/* <Boot/> */}
-      <Table />
+      <Test />
+
     </div>
   );
 }
