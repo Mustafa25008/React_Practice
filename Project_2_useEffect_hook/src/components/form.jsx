@@ -1,9 +1,11 @@
 import { Modal, Button } from "react-bootstrap";
 
 
-function ProductForm({operation, setModalShow, modalShow, setmsg, Iitem, setIitem}){
+function Form({operation, setModalShow, modalShow, setmsg, Iitem, setIitem}){
     
-    const handleClose = ()=> setModalShow(false);
+    const handleClose = ()=> {
+        setIitem({id:"",title:"", price:""});
+        setModalShow(false);}
 
     const product = ()=>{
         if(!Iitem.title || !Iitem.price || Number(Iitem.price)<=0 || isNaN(Number(Iitem.price))){
@@ -52,4 +54,4 @@ function ProductForm({operation, setModalShow, modalShow, setmsg, Iitem, setIite
             </div>
     );
 }
-export default ProductForm;
+export default Form;

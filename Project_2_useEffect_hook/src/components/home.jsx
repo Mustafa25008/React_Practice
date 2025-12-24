@@ -1,10 +1,10 @@
 import React,{useState} from "react";
 import {Button} from "react-bootstrap";
-import ProductForm from "./productform";
+import Form from "./form";
 import Index from "./index";
 import Msg from "./message";
 
- function Test(){
+ function Home(){
 
     const [modalShow, setModalShow] = useState(false);
     const [msg, setmsg] = useState({text:"", type:""});
@@ -34,7 +34,7 @@ import Msg from "./message";
             <div>
                 <Button onClick={()=>{setOpe("add"); setModalShow(true)}}>Add Products</Button>
             </div>
-            {modalShow && <ProductForm operation={ope} setModalShow={setModalShow} modalShow={modalShow} setmsg={setmsg} Iitem={Iitem} setIitem={setIitem}/>}
+            {modalShow && <Form operation={ope} setModalShow={setModalShow} modalShow={modalShow} setmsg={setmsg} Iitem={Iitem} setIitem={setIitem}/>}
             <div>
                 <Button className="btn btn-secondary" onClick={()=>{fetch_data(); setproductShow(true);}}>Show All Products</Button>
                 <Msg msg={msg} setmsg={setmsg}/>
@@ -44,4 +44,4 @@ import Msg from "./message";
         </div>
     );
  }
- export default Test;
+ export default Home;
