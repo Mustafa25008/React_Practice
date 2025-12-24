@@ -1,0 +1,54 @@
+/* Header styles */
+.site-header {
+  background: linear-gradient(90deg, #ffffff 0%, #f7f9fb 100%);
+  border-bottom: 1px solid rgba(15, 23, 42, 0.06);
+  padding: 18px 0;
+}
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: #064e3b;
+  font-weight: 700;
+  font-size: 1.15rem;
+}
+.logo-icon {
+  font-size: 1.4rem;
+}
+.cta {
+  background: #10b981;
+  color: white;
+  text-decoration: none;
+  padding: 8px 14px;
+  border-radius: 10px;
+  box-shadow: 0 6px 14px rgba(16, 185, 129, 0.12);
+  font-weight: 600;
+}
+.container {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 18px;
+}
+
+@media (max-width: 720px) {
+  .header-inner {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .nav {
+    order: 2;
+  }
+  .cta {
+    order: 3;
+    align-self: center;
+    margin-top: 8px;
+  }
+}
