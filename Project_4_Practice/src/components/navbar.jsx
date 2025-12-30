@@ -20,6 +20,11 @@ function NavBar() {
                         isActive ? 'active-link' : 'inactive-link'
                         }>Login</NavLink>
                 </li>
+                <li>
+                    <NavLink to="/cart"className={({ isActive }) => 
+                        isActive ? 'active-link' : 'inactive-link'
+                        }>Cart</NavLink>
+                </li>
             </ul>
         </div>
     )

@@ -2,6 +2,7 @@ import React from "react";
 import Modal from "../components/modal";
 import { Button } from "react-bootstrap";
 import { useState, useEffect } from "react";
+import { useOutletContext } from "react-router-dom";
 
 function Showproduct() {
     const [products, setProducts] = useState([]);
@@ -10,8 +11,11 @@ function Showproduct() {
     const [deletedIds, setDeletedIds] = useState([]);
     const [modal, setModal] = useState(false);
     const [product, setproduct] = useState({id:"",title:"", price:"", description:""});
+    const {cart, setCart} = useOutletContext();
 
-
+    useEffect(()=>{
+        cart.map((ct, i)=>{console.log("Title: "+i, ct.title)});
+    },[cart]);
 
     useEffect(()=>{
         if(!msg.message) return;
@@ -54,10 +58,14 @@ function Showproduct() {
             }
         }
         catch(error) {
-            setmsg({text:"Error:"+error.message, type:"Error"});
+            setmsg({message:"Error:"+error.message, type:"Error"});
         }
     
     }
+
+    const addtoCart = (item)=> {
+        setCart((prev) => [...prev, item]);
+    };
 
     return (
         <>
@@ -91,9 +99,9 @@ function Showproduct() {
                                 </td>
                                 <td className="text-wrap">{product.title}</td>
                                 <td>{"$"+product.price}</td>
-                                <td><Button onClick={()=>{ setproduct({id: product.id, title: product.title, price: product.price, description: product.description}), setModal(true); }} disabled={isDeleted}>Edit</Button></td>
+                                <td><Button onClick={()=>{ setproduct({id: product.id, title: product.title, price: product.price, description: product.description}); setModal(true); }} disabled={isDeleted}>Edit</Button></td>
                                 <td><Button className="btn btn-danger" onClick={()=>{removeProduct(product.id);}} disabled={isDeleted}>{isDeleted? "Deleted": "Delete"}</Button></td>
-                                <td><Button className="btn btn-warning text-nowrap" disabled={isDeleted}>Add to Cart</Button></td>
+                                <td><Button className="btn btn-warning text-nowrap" disabled={isDeleted} onClick={()=>addtoCart(product)}>Add to Cart</Button></td>
                                 </tr>
                             );
                         }

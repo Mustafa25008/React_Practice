@@ -1,10 +1,11 @@
-import React from "react";
+import React, {useState} from "react";
 import { Button } from "react-bootstrap";
 import "./App.css";
 import NavBar from "./components/navbar";
 import { Outlet } from "react-router-dom";
 
 function App() {
+  const [cart, setCart] = useState([]);
   return (
     <div className="container-fluid">
       <div className="row">
@@ -14,7 +15,7 @@ function App() {
         </div>
 
         <div className="col Cont2 d-flex justify-content-start flex-column align-items-start">
-          <Outlet />
+          <Outlet context={{cart, setCart}}/>
         </div>
       </div>
     </div>

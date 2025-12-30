@@ -40,6 +40,7 @@ function Login() {
 
     return (
         <>
+        <h1>Login</h1>
         <div className="d-flex flex-column gap-2 form p-1">
             <form onSubmit={handleSubmit(login)}>
                 <div className="d-flex gap-1 form-item mb-2">

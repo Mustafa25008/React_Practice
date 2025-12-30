@@ -4,6 +4,8 @@ import App from "../App";
 import Addproduct from "../pages/addproduct";
 import Showproduct from "../pages/showproduct";
 import Login from "../pages/login";
+import Cart from "../pages/cart";
+
 
 const router = createBrowserRouter([
   {
@@ -22,7 +24,10 @@ const router = createBrowserRouter([
         path: "login",
         element: <Login />,
       },
-      
+      {
+        path: "cart",
+        element: <Cart />,
+      }
     ],
   },
 ]);
