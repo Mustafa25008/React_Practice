@@ -65,6 +65,7 @@ function Showproduct() {
 
     const addtoCart = (item)=> {
         setCart((prev) => [...prev, item]);
+        setmsg({message: "Item added to cart", type: "success"});
     };
 
     return (
