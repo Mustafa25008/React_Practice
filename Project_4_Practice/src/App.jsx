@@ -1,11 +1,25 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { Button } from "react-bootstrap";
 import "./App.css";
 import NavBar from "./components/navbar";
 import { Outlet } from "react-router-dom";
 
 function App() {
-  const [cart, setCart] = useState([]);
+
+  const [cart, setCart] = useState(() => {
+  try {
+    const savedCart = localStorage.getItem("cart");
+    return savedCart ? JSON.parse(savedCart) : [];
+  } catch {
+    return [];
+  }
+});
+
+useEffect(() => {
+  localStorage.setItem("cart", JSON.stringify(cart));
+}, [cart]);
+
+
   return (
     <div className="container-fluid">
       <div className="row">

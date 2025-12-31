@@ -1,4 +1,4 @@
-import React     from "react";
+import React from "react";
 import { Button } from "react-bootstrap";
 import { useOutletContext } from "react-router-dom";
 
@@ -14,12 +14,15 @@ function Cart() {
         setCart(newCart);
     }
 
+    const totalPrice = cart.reduce((sum, item) => {
+        return sum + item.price;
+        }, 0);
+
     return (
         <>
         <div>
             <h1>Your Cart</h1>
             {cart.map((items, ind)=>{
-                console.log(items.image);
                 return (
                 <div key={items.id} className="d-flex align-items-center gap-1 border p-2 m-2 bg-light text-black">
                     <img className="me-2" src={items.image} alt={items.title} style={{width: "50px"}}/>
@@ -29,6 +32,10 @@ function Cart() {
                 </div>
                 );
             })}
+            <div className="d-flex m-2 flex-column border bg-light text-black p-2 text-end">
+                <p>Total Items: {cart.length}</p>
+                <p>Total Price: ${totalPrice}</p>
+            </div>
         </div>
         </>
     );

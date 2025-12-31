@@ -7,7 +7,6 @@ import { useOutletContext } from "react-router-dom";
 function Showproduct() {
     const [products, setProducts] = useState([]);
     const [msg, setmsg] = useState({message: "", type:""});
-    const [Btn, setBtn] = useState("Load Products");
     const [deletedIds, setDeletedIds] = useState([]);
     const [modal, setModal] = useState(false);
     const [product, setproduct] = useState({id:"",title:"", price:"", description:""});
@@ -25,6 +24,23 @@ function Showproduct() {
         return ()=>clearTimeout(timer);
     },[msg]);
 
+    // At first Render
+    useEffect(()=>{
+        const savedProducts = localStorage.getItem("product");
+        if(savedProducts){
+            setProducts(JSON.parse(savedProducts));
+            return;
+        }
+        loadProducts();
+    },[]);
+
+    // Save Products to local storage
+    useEffect(()=>{
+        if( products.length > 0){
+            localStorage.setItem("product", JSON.stringify(products));
+        }
+    },[products]);
+
     async function loadProducts() {
         try {
             const res = await fetch(import.meta.env.VITE_API_URL+"/products");
@@ -32,14 +48,13 @@ function Showproduct() {
                 const data = await res.json();
                 setProducts(data);
                 setmsg({message: "Data loaded Successfully", type: "success"});
-                setBtn("Products Loaded");
             }else{
                 setmsg({message: "Failed to Load Products", type: "error"});
-                setBtn("Load Products");
             }
         }
-        catch(error){
-            setmsg({message:error.message, type: "error"});
+        catch(e){
+            if (e)
+                setmsg({message:"An Error Occcurs! Try Again Later", type: "error"});
         }
     }
 
@@ -72,7 +87,6 @@ function Showproduct() {
         <>
         <div>
             <h1>Show Product</h1>
-            <Button onClick={()=>{setBtn("Loading...");loadProducts()}} className="btn btn-warning" disabled={Btn==="Load Products"? false:true}>{Btn}</Button>
         </div>
         {msg.message && <p className="m-2" style={{color: msg.type==="success"? "green": "red"}}>{msg.message}</p>}
         {
