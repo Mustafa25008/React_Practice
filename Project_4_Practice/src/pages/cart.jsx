@@ -32,7 +32,7 @@ function Cart() {
                 </div>
                 );
             })}
-            <div className="d-flex m-2 flex-column border bg-light text-black p-2 text-end">
+            <div className="d-flex m-2 flex-column border bg-dark text-white text-black p-2">
                 <p>Total Items: {cart.length}</p>
                 <p>Total Price: ${totalPrice}</p>
             </div>
