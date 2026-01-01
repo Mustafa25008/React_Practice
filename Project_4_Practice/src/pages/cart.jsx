@@ -1,17 +1,22 @@
 import React from "react";
 import { Button } from "react-bootstrap";
-import { useOutletContext } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { removeCart } from "../redux/product/cart-Slice";
+// import { useOutletContext } from "react-router-dom";
 
 function Cart() {
 
-    const {cart, setCart} = useOutletContext();
+    // const {cart, setCart} = useOutletContext();
+    const cart = useSelector((state)=>state.cart.items);
+    const dispatch = useDispatch();
 
     const deleteCart = (index)=>{
         const confirm = window.confirm("Are you sure to remove the item from cart?");
         if (!confirm) return;
-        const newCart = [...cart];
-        newCart.splice(index, 1);
-        setCart(newCart);
+        // const newCart = [...cart];
+        // newCart.splice(index, 1);
+        // setCart(newCart);
+        dispatch(removeCart(index));
     }
 
     const totalPrice = cart.reduce((sum, item) => {
