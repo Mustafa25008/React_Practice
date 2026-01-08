@@ -1,0 +1,10 @@
+.sidebar-link {
+    text-decoration: none;
+    color: black;
+}
+
+
+.sidebar-link.active {
+    color: var(--bs-primary); /* Bootstrap's primary blue */
+    font-weight: bold;
+}
