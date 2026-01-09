@@ -1,8 +1,43 @@
+import { Button } from "react-bootstrap";
+import { useSelector, useDispatch } from "react-redux";
+import { removeCart } from "../redux/product/cart-Slice";
+import type { RootState } from "../redux/store";
+
 function ProductCart () {
+
+    const cart = useSelector((state: RootState)=>state.cart.items);
+    const dispatch = useDispatch();
+
+    const deleteCart = (index: number)=>{
+        const confirm = window.confirm("Are you sure to remove the item from cart?");
+        if (!confirm) return;
+        dispatch(removeCart(index));
+    }
+
+    const totalPrice = cart.reduce((sum, item) => {
+        return sum + (item.price || 0);
+        }, 0);
+
     return (
+        <>
         <div>
-            <h1>Product Cart</h1>
+            <h1>Your Cart</h1>
+            {cart.map((items, ind)=>{
+                return (
+                <div key={ind} className="d-flex align-items-center gap-1 border p-2 m-2 bg-light text-black">
+                    <img className="me-2" src={items.image} alt={items.title} style={{width: "50px"}}/>
+                    <p className="mb-0 flex-grow-1">{items.title}</p>
+                    <p className="mb-0 text-end fw-semibold" style={{ width: "150px" }}>Price: ${items.price}</p>
+                    <Button className="btn btn-danger ms-3" onClick={()=>deleteCart(ind)}>Remove</Button>
+                </div>
+                );
+            })}
+            <div className="d-flex m-2 flex-column border bg-light text-black p-2">
+                <p>Total Items: {cart.length}</p>
+                <p>Total Price: ${totalPrice}</p>
+            </div>
         </div>
+        </>
     );
 }
 export default ProductCart;
