@@ -1,15 +1,21 @@
 import { useForm } from "react-hook-form";
 import { Button } from "react-bootstrap";
 import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addProduct } from "../redux/product/productslice";
+import type { RootState } from "../redux/store";
 
 interface Product {
     id?: number;
     title: string;
-    price: number;
+    price: number | null;
     description: string;
 }
 
 function AddProducts() {
+
+    const dispatch = useDispatch();
+    const reduxProduct = useSelector((state: RootState)=> state.showproduct.value);
     const [msg, setmsg] = useState({message: "", type: ""});
 
     const {
@@ -19,7 +25,7 @@ function AddProducts() {
         reset,
     } = useForm<Product>({mode:"all"});
 
-        async function saveproduct(data: Product) {
+    async function saveproduct(data: Product) {
         try {
             const response = await fetch(import.meta.env.VITE_API_URL+"/products",{
                 method: 'POST',
@@ -27,6 +33,7 @@ function AddProducts() {
                 body: JSON.stringify(data)
             });
             if(response.ok){
+                dispatch(addProduct(data));
                 setmsg({message: "Product Saved Successfully", type: "success"});
                 reset();
             }else{
@@ -44,11 +51,21 @@ function AddProducts() {
             setmsg({message: "", type: ""});
         }, 2000);
         return () => clearTimeout(timer);
-    })
+    },[msg.type]);
+
+    useEffect(() => {
+        reset({
+            id: reduxProduct.length + 1,
+            title: "",
+            price: null,
+            description: "",
+        });
+    }, [reset, reduxProduct.length]);
 
     return(
         <>
         <h1 className="mb-3">Add Products</h1>
+        <p>{reduxProduct.length}</p>
         <form onSubmit={handleSubmit(saveproduct)}>
             <div className="d-flex flex-column gap-2 ">
                 <div className="form-item d-flex gap-2">

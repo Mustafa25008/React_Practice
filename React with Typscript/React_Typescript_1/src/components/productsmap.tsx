@@ -11,6 +11,12 @@ interface Products_items {
   title?: string;
   price?: number | null;
   description?: string;
+  category?: string;
+    image?: string;
+    rating?: {
+        rate: number | null;
+        count: number | null;
+    };
 }
 
 function ProductMap({ product }: { product: Product[] }) {
@@ -22,11 +28,18 @@ function ProductMap({ product }: { product: Product[] }) {
     message: "",
     type: "",
   });
+  
   const [product_item, setproduct_item] = useState<Products_items>({
     id: 0,
     title: "",
     price: 0,
     description: "",
+    category: "",
+    image: "",
+    rating: {
+      rate: null,
+      count: null,
+    },
   });
 
   async function removeProduct(id: number) {
@@ -104,6 +117,9 @@ function ProductMap({ product }: { product: Product[] }) {
                             title: items.title,
                             price: Number(items.price),
                             description: items.description,
+                            category: items.category,
+                            image: items.image,
+                            rating: items.rating,
                           });
                           setModal(true);
                         }}

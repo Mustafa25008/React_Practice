@@ -43,11 +43,23 @@ export const productSlice = createSlice({
     deleteProduct: (state, action) => {
       state.value = state.value.filter((item)=> item.id !== action.payload);
       localStorage.setItem("products", JSON.stringify(state.value));
+    },
+    updateProduct: (state, action) => {
+      const index = state.value.findIndex((ind)=> ind.id === action.payload.id);
+      if (index !== -1) {
+        state.value[index] = action.payload;
+        localStorage.setItem("products", JSON.stringify(state.value));
+      }
+    },
+    addProduct: (state, action) => {
+      state.value.push(action.payload);
+      localStorage.setItem("products", JSON.stringify(state.value));
     }
+
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { loadProducts, setLoading, setFailed, deleteProduct } = productSlice.actions
+export const { loadProducts, setLoading, setFailed, deleteProduct, updateProduct, addProduct } = productSlice.actions
 
 export default productSlice.reducer

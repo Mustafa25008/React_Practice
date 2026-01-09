@@ -1,12 +1,20 @@
 import { Button, Modal } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { useEffect } from "react";
+import { updateProduct } from "../redux/product/productslice";
+import { useDispatch } from "react-redux";
 
 interface Products_items {
-  id?: number | null;
-  title?: string;
-  price?: number | null;
-  description?: string;
+    id?: number | null;
+    title?: string;
+    price?: number | null;
+    description?: string;
+    category?: string;
+    image?: string;
+    rating?: {
+        rate: number | null;
+        count: number | null;
+    };
 }
 
 interface EditModalProps {
@@ -19,6 +27,8 @@ interface EditModalProps {
 
 function EditModal ({modalShow, setModal, setmsg, prod, setprod}: EditModalProps){
 
+    const dispatch = useDispatch();
+
     const {
         register,
         handleSubmit,
@@ -29,9 +39,13 @@ function EditModal ({modalShow, setModal, setmsg, prod, setprod}: EditModalProps
     useEffect(() => {
         if (prod?.id) {
             reset({
+                id: prod.id,
                 title: prod.title,
                 price: prod.price,
-                description: prod.description
+                description: prod.description,
+                category: prod.category,
+                image: prod.image,
+                rating: prod.rating,
             });
         }
     }, [prod, reset]);
@@ -49,6 +63,7 @@ function EditModal ({modalShow, setModal, setmsg, prod, setprod}: EditModalProps
                 body: JSON.stringify(data)
             });
             if(response.ok) {
+                dispatch(updateProduct(data));
                 setmsg({message: "Product Update Successfully", type: "success"});
             }
             else {
