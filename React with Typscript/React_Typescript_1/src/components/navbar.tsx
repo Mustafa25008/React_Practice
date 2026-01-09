@@ -16,7 +16,7 @@ function NavBar() {
                     <NavLink to = "/index" className="sidebar-link flex-nowrap">Show all Products</NavLink>
                 </li>
                 <li>
-                    <NavLink to ="/cart" className="sidebar-link">Cart</NavLink>
+                    <NavLink to ="/cart" className="sidebar-link">My Cart</NavLink>
                 </li>
             </ul>
         </div>

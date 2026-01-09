@@ -2,6 +2,8 @@ import type { Product } from "../redux/product/productslice";
 import { Button } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import EditModal from "./editproduct";
+import { useDispatch } from "react-redux";
+import { saveCart } from "../redux/product/cart-Slice";
 
 interface Products_items {
   id?: number| null;
@@ -11,6 +13,8 @@ interface Products_items {
 }
 
 function ProductMap({ product }: { product: Product[] }) {
+
+  const dispatch = useDispatch();
 
   const [deletedIds, setDeletedIds] = useState<number[]>([]);
   const [modal, setModal] = useState<boolean>(false);
@@ -114,7 +118,7 @@ function ProductMap({ product }: { product: Product[] }) {
                     </Button>
                   </td>
                   <td>
-                    <Button variant="warning" size="sm">
+                    <Button variant="warning" size="sm" onClick={()=>{dispatch(saveCart(items)); setmsg({message: "Product added to cart successfully", type: "success"})}}>
                       Add to Cart
                     </Button>
                   </td>
