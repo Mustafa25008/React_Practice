@@ -13,10 +13,27 @@ function Showproduct() {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    async function loadProducts() {
+    try {
+      const res = await fetch(import.meta.env.VITE_API_URL + "/products");
+      if (res.ok) {
+        const data = await res.json();
+        // setProducts(data); use this when redux not use
+        dispatch(load(data));
+        setmsg({ message: "Data loaded Successfully", type: "success" });
+      } else {
+        setmsg({ message: "Failed to Load Products", type: "error" });
+      }
+    } catch (e) {
+      if (e)
+        setmsg({ message: "An Error Occcurs! Try Again Later", type: "error" });
+    }
+  }
     if (products.length === 0) {
+
       loadProducts();
     }
-  }, [products,loadProducts]);
+  }, [products, dispatch]);
 
   //useStates
   // const [products, setProducts] = useState([]); use it when redux not use
@@ -59,22 +76,7 @@ function Showproduct() {
         }
     },[products]);*/
 
-  async function loadProducts() {
-    try {
-      const res = await fetch(import.meta.env.VITE_API_URL + "/products");
-      if (res.ok) {
-        const data = await res.json();
-        // setProducts(data); use this when redux not use
-        dispatch(load(data));
-        setmsg({ message: "Data loaded Successfully", type: "success" });
-      } else {
-        setmsg({ message: "Failed to Load Products", type: "error" });
-      }
-    } catch (e) {
-      if (e)
-        setmsg({ message: "An Error Occcurs! Try Again Later", type: "error" });
-    }
-  }
+  
 
   async function removeProduct(id) {
     try {
