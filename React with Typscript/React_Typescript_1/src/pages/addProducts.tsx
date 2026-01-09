@@ -65,7 +65,6 @@ function AddProducts() {
     return(
         <>
         <h1 className="mb-3">Add Products</h1>
-        <p>{reduxProduct.length}</p>
         <form onSubmit={handleSubmit(saveproduct)}>
             <div className="d-flex flex-column gap-2 ">
                 <div className="form-item d-flex gap-2">
