@@ -10,7 +10,7 @@ function NavBar() {
                     <NavLink to ="/" className="sidebar-link">Add Products</NavLink>
                 </li>
                 <li className="mb-2">
-                    <NavLink to = "/index" className="sidebar-link flex-nowrap">Show all Products</NavLink>
+                    <NavLink to = "/index" className="sidebar-link flex-nowrap">View Products</NavLink>
                 </li>
                 <li>
                     <NavLink to ="/cart" className="sidebar-link">My Cart</NavLink>
