@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import EditModal from "./editproduct";
 import { useDispatch } from "react-redux";
 import { saveCart } from "../redux/product/cart-Slice";
+import {deleteProduct} from "../redux/product/productslice";
 
 interface Products_items {
   id?: number| null;
@@ -16,7 +17,6 @@ function ProductMap({ product }: { product: Product[] }) {
 
   const dispatch = useDispatch();
 
-  const [deletedIds, setDeletedIds] = useState<number[]>([]);
   const [modal, setModal] = useState<boolean>(false);
   const [msg, setmsg] = useState<{ message: string; type: string }>({
     message: "",
@@ -43,7 +43,7 @@ function ProductMap({ product }: { product: Product[] }) {
       );
       if (res.ok) {
         setmsg({ message: "Product removed successfully", type: "success" });
-        setDeletedIds((pre) => [...pre, id]);
+        dispatch(deleteProduct(id));
       } else {
         throw new Error("Network response was not ok");
       }
@@ -62,7 +62,10 @@ function ProductMap({ product }: { product: Product[] }) {
 
   return (
     <div className="container-fluid mt-2 overflow-hidden">
-        {msg.message && <p style={msg.type === "error"? {color:"red"}: {color:"green"}}>{msg.message}</p>}
+        <div>
+          <h1>All Products</h1>
+          {msg.message && <p style={msg.type === "error"? {color:"red"}: {color:"green"}}>{msg.message}</p>}
+        </div>
       <div className="table-responsive">
         <table className="table table-bordered table-striped table-hover w-100">
           <thead className="table-light text-center">
@@ -76,7 +79,6 @@ function ProductMap({ product }: { product: Product[] }) {
           </thead>
           <tbody>
             {product.map((items) => {
-              const isDeleted = deletedIds.includes(items.id);
               return (
                 <tr key={items.id} className="align-middle text-center">
                   <td>{items.id}</td>
@@ -112,9 +114,7 @@ function ProductMap({ product }: { product: Product[] }) {
                       variant="danger"
                       size="sm"
                       onClick={() => {removeProduct(items.id);}}
-                      disabled={isDeleted}
-                    >
-                      {isDeleted ? "Deleted" : "Delete"}
+                    > Delete
                     </Button>
                   </td>
                   <td>

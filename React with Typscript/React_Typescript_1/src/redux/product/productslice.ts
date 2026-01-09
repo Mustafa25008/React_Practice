@@ -39,11 +39,15 @@ export const productSlice = createSlice({
     },
     setFailed: (state) =>{
       state.status = 'failed';
+    },
+    deleteProduct: (state, action) => {
+      state.value = state.value.filter((item)=> item.id !== action.payload);
+      localStorage.setItem("products", JSON.stringify(state.value));
     }
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { loadProducts, setLoading, setFailed} = productSlice.actions
+export const { loadProducts, setLoading, setFailed, deleteProduct } = productSlice.actions
 
 export default productSlice.reducer
