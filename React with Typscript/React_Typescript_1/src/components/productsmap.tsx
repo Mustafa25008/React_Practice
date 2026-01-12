@@ -61,7 +61,7 @@ function ProductMap({ product }: { product: Product[] }) {
         throw new Error("Network response was not ok");
       }
     } catch (error) {
-      setmsg({ message: "Error:" + error, type: "Error" });
+      setmsg({ message: "Error:" + error, type: "error" });
     }
   }
 
